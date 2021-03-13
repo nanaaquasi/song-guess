@@ -1,13 +1,88 @@
-body {
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("./assets/images/bg.jpg");
+  background-size: cover;
+  background-position: right;
+  background-color: rgb(0, 14, 6, 0.9);
+  background-blend-mode: color;
+  color: rgb(255, 255, 255);
+  margin: 0;
+  font-family: "Quire Sans", sans-serif;
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: "Euclid Square";
+  src: url("assets/fonts/EuclidSquare-Bold.eot");
+  src: url("assets/fonts/EuclidSquare-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/EuclidSquare-Bold.woff2") format("woff2"),
+    url("assets/fonts/EuclidSquare-Bold.woff") format("woff"),
+    url("assets/fonts/EuclidSquare-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Quire Sans";
+  src: url("assets/fonts/QuireSans.eot");
+  src: url("assets/fonts/QuireSans.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/QuireSans.woff2") format("woff2"),
+    url("assets/fonts/QuireSans.woff") format("woff"),
+    url("assets/fonts/QuireSans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Quire Sans";
+  src: url("assets/fonts/QuireSans-Black.eot");
+  src: url("assets/fonts/QuireSans-Black.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/QuireSans-Black.woff2") format("woff2"),
+    url("assets/fonts/QuireSans-Black.woff") format("woff"),
+    url("assets/fonts/QuireSans-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Quire Sans";
+  src: url("assets/fonts/QuireSans-Bold.eot");
+  src: url("assets/fonts/QuireSans-Bold.eot?#iefix") format("embedded-opentype"),
+    url("assets/fonts/QuireSans-Bold.woff2") format("woff2"),
+    url("assets/fonts/QuireSans-Bold.woff") format("woff"),
+    url("assets/fonts/QuireSans-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Quire Sans";
+  src: url("assets/fonts/QuireSans-SemiBold.eot");
+  src: url("assets/fonts/QuireSans-SemiBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/QuireSans-SemiBold.woff2") format("woff2"),
+    url("assets/fonts/QuireSans-SemiBold.woff") format("woff"),
+    url("assets/fonts/QuireSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
