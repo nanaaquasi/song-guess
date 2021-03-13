@@ -1,21 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router";
 
 import { CardImage } from "../styled/Card";
 import { Button, Container, Heading, Stack, Text } from "../styled/Shared";
-import bgImage from "../assets/images/shot.png";
+
 const Home = () => {
-  const authParams = {
-    client_id: "b238b4dd0cd941b2a4945d31cdbdec17",
-    redirect_url: "http://localhost:3000/redirect",
-  };
-
-  console.log(
-    process.env.REACT_APP_AUTH_URL,
-    process.env.REACT_APP_CLIENT_ID,
-    process.env.REACT_APP_REDIRECT_URL
-  );
-
   const authUrl = `${process.env.REACT_APP_AUTH_URL}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&show_dialog=true`;
 
   const handleGrantPermission = () => {
@@ -26,20 +14,13 @@ const Home = () => {
     <Container>
       <Stack>
         <h1>guesss.</h1>
-        <Stack
-          justify='space-between'
-          spacing='4rem'
-          style={{ marginTop: "10rem" }}
-          isInline
-        >
+        <Stack spaceBetween style={{ marginTop: "10rem" }} isInline>
           <Stack
-            flexBasis='100%'
-            justify='center'
-            align='center'
+            center
             // style={{ marginBottom: "rem" }}
           >
             <Heading size={60} w='80%'>
-              How well do you know your{" "}
+              How well do you know your
               <span style={{ color: "#00d41c" }}>playlists?</span>
             </Heading>
             <Text fontSize='24px' style={{ marginTop: "2rem", width: "45%" }}>
