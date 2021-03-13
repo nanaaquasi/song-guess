@@ -1,6 +1,10 @@
 import axios from "axios";
 import JwtService from "./jwt.service";
 
+const token = JwtService.getItem("token");
+axios.defaults.baseURL = "https://api.spotify.com/v1";
+axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+
 const headers = () => {
   const token = JwtService.getItem("token");
   return {

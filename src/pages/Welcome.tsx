@@ -1,18 +1,62 @@
 import React from "react";
-import { Container, Stack, Text } from "../styled/Shared";
+import { Avatar, AvatarImage, Container, Stack, Text } from "../styled/Shared";
 import { GameCard } from "../styled/Card";
 import iconHelp from "../assets/icons/help.png";
 import iconSong from "../assets/icons/song.png";
 import iconPlaylist from "../assets/icons/playlist.png";
+import { getCurrentUserProfile } from "../api/spotify.service";
+
+type Image = {
+  height?: string;
+  width?: string;
+  url: string;
+};
+
+type User = {
+  name: string;
+  profileImage: Image;
+};
 
 const Welcome = () => {
+  const [user, setCurrentUser] = React.useState<User>();
+  React.useEffect(() => {
+    const getUserProfile = async (): Promise<void> => {
+      try {
+        const { data } = await getCurrentUserProfile();
+        console.log({ data });
+
+        const { display_name, images } = data;
+
+        setCurrentUser({
+          name: display_name,
+          profileImage: images[0],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUserProfile();
+  }, []);
+
   return (
     <Container>
       <Stack>
-        <h1>guesss.</h1>
+        <Stack isInline spaceBetween>
+          <Stack isInline>
+            <h1>guesss.</h1>
+          </Stack>
+          <Stack isInline flexEnd>
+            <Avatar>
+              <AvatarImage src={user?.profileImage.url} />
+            </Avatar>
+            <h3>{user?.name}</h3>
+          </Stack>
+        </Stack>
+
         <Stack
           isInline
-          justify='space-between'
+          spaceBetween
           style={{ width: "85%", margin: "15rem auto 0 auto" }}
         >
           <GameCard>
