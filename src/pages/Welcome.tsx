@@ -44,6 +44,7 @@ const Welcome = () => {
         <Stack
           isInline
           spaceBetween
+          margin='15rem auto 0 auto'
           style={{ width: "85%", margin: "15rem auto 0 auto" }}
         >
           <GameCard>

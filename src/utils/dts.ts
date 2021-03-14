@@ -32,3 +32,30 @@ export type Playlist = {
   total: number;
   items: PlaylistItem[];
 };
+
+export type Track = {
+  added_at?: string;
+  track?: TrackItem;
+};
+
+export type Album = {
+  href?: string;
+  name?: string;
+  images?: Image[];
+};
+
+export type Artist = {
+  id?: string;
+  name?: string;
+  uri?: string;
+};
+
+export type TrackItem = {
+  id?: string;
+  name?: string;
+  popularity?: number;
+  preview_url?: string;
+  duration_ms?: number;
+  artists?: Artist[];
+  album?: Album;
+};

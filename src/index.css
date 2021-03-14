@@ -13,6 +13,8 @@ html {
 }
 
 body {
+  width: 100vw;
+  max-height: 100vh;
   background-image: url("./assets/images/bg.jpg");
   background-size: cover;
   background-position: right;
@@ -26,6 +28,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+
+@media (max-width: 700px) {
+ body {
+  max-height: 100vh;
+  overflow: hidden;
+ }
+}
+
 
 @font-face {
   font-family: "Euclid Square";

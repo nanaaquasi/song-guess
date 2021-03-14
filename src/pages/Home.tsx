@@ -26,7 +26,7 @@ const Home = () => {
             style={{ margin: "0 auto", width: "100%" }}
             // style={{ marginBottom: "rem" }}
           >
-            <Heading size={60} w='80%'>
+            <Heading size={60} w='80%' center>
               How well do you know your
               <span style={{ color: "#00d41c" }}> playlists?</span>
             </Heading>

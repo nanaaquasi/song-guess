@@ -13,7 +13,7 @@ const Navigator = () => {
       <Route exact path='/redirect' component={RedirectPage} />
       <Route exact path='/welcome' component={Welcome} />
       <Route exact path='/user/playlists' component={PlaylistSelect} />
-      <Route exact path='/quiz' component={Quiz} />
+      <Route exact path='/quiz/playlist/:id' component={Quiz} />
     </Switch>
   );
 };
