@@ -55,7 +55,7 @@ export const GameCard = styled.div`
     height: 200px !important;
     padding: 1rem !important;
 
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   > img {
