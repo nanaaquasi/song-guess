@@ -10,6 +10,7 @@ type StackProps = {
   justify?: string;
   start?: boolean;
   wrap?: boolean;
+  margin?: string;
 };
 
 type ContainerProps = {
@@ -19,6 +20,7 @@ type ContainerProps = {
 type HeadingProps = {
   size?: number;
   w?: string;
+  center?: boolean;
 };
 
 type TextProps = {
@@ -49,8 +51,16 @@ export const Stack = styled.div`
   width: 100%;
   position: relative;
   display: flex;
+  margin: ${(props: StackProps) => props.margin || "0"};
   align-items: ${(props: StackProps) => (props.isInline ? "center" : "center")};
   flex-direction: ${(props: StackProps) => (props.isInline ? "row" : "column")};
+
+  @media (max-width: 700px) {
+    flex-direction: ${(props: StackProps) => props.isInline && "column"};
+    margin: ${(props: StackProps) =>
+      props.margin && "4rem auto 0 auto !important"};
+  }
+
   ${(props: StackProps) =>
     props.spaceBetween &&
     css`
@@ -155,10 +165,19 @@ export const Heading = styled.h1`
   font-weight: bold;
   line-height: 1.2;
   font-family: "Euclid Square";
-  /* text-align: center; */
+  text-align: ${(props: HeadingProps) => props.center && "center"};
+
+  @media (max-width: 700px) {
+    font-size: 36px;
+    width: 100%;
+  }
 `;
 
 export const Text = styled.p`
+  @media (max-width: 700px) {
+    font-size: 20px;
+    width: 100% !important;
+  }
   text-align: center;
 
   font-size: ${(props: TextProps) => props.fontSize || "16px"};

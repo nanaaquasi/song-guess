@@ -10,6 +10,23 @@ export const CardImage = styled.div`
   height: ${(props: CardProps) => props.height};
   border-radius: 2rem;
   overflow: hidden;
+
+  @media (max-width: 700px) {
+    width: 250px !important;
+    height: 250px !important;
+    margin-top: 0 !important;
+  }
+
+  > img {
+    @media (max-width: 700px) {
+      transform: translate(0rem, 0rem) !important;
+      width: 250px !important;
+      height: 250px !important;
+      object-fit: contain !important;
+      object-position: center !important;
+    }
+  }
+
   /* flex-basis: 50%; */
   /* margin-top: -4rem; */
 `;
@@ -32,6 +49,21 @@ export const GameCard = styled.div`
   flex-direction: column;
   cursor: pointer;
   transition: transform 0.2s;
+
+  @media (max-width: 700px) {
+    width: 350px !important;
+    height: 200px !important;
+    padding: 1rem !important;
+
+    margin-bottom: 4rem;
+  }
+
+  > img {
+    @media (max-width: 700px) {
+      width: 60px !important;
+      height: 60px !important;
+    }
+  }
 
   &:hover {
     background: rgba(0, 29, 10, 0.444);
