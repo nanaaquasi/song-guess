@@ -8,10 +8,9 @@ const RedirectPage = () => {
   const { hash } = useLocation();
 
   React.useEffect(() => {
-    console.log(hash);
     const getAccessTokenFromUrl = async () => {
       try {
-        const { access_token, expires_in, token_type } = getParamValues(hash);
+        const { access_token, expires_in } = getParamValues(hash);
         const expiryTime = new Date().getTime() + expires_in * 1000;
 
         jwtService.storeItem(access_token, "token");

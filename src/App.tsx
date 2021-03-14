@@ -1,8 +1,12 @@
 import React from "react";
-import Router from "./navigator";
+import Navigator from "./navigator";
 
 function App() {
-  return <Router />;
+  return (
+    <>
+      <Navigator />
+    </>
+  );
 }
 
 export default App;

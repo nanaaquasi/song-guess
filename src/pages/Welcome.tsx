@@ -1,18 +1,50 @@
 import React from "react";
-import { Container, Stack, Text } from "../styled/Shared";
+import { Avatar, AvatarImage, Container, Stack, Text } from "../styled/Shared";
 import { GameCard } from "../styled/Card";
 import iconHelp from "../assets/icons/help.png";
 import iconSong from "../assets/icons/song.png";
 import iconPlaylist from "../assets/icons/playlist.png";
+import { getCurrentUserProfile } from "../api/spotify.service";
+import { User } from "../utils/dts";
+import { useHistory } from "react-router";
+import Navbar from "../components/Navbar";
 
 const Welcome = () => {
+  const [user, setCurrentUser] = React.useState<User>({
+    name: "",
+    profileImage: {},
+  });
+
+  const history = useHistory();
+
+  React.useEffect(() => {
+    const getUserProfile = async (): Promise<void> => {
+      try {
+        const { data } = await getCurrentUserProfile();
+        console.log({ data });
+
+        const { display_name, images } = data;
+
+        setCurrentUser({
+          name: display_name,
+          profileImage: images[0],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUserProfile();
+  }, []);
+
   return (
     <Container>
       <Stack>
-        <h1>guesss.</h1>
+        <Navbar currentUser={user}></Navbar>
         <Stack
           isInline
-          justify='space-between'
+          spaceBetween
+          margin='15rem auto 0 auto'
           style={{ width: "85%", margin: "15rem auto 0 auto" }}
         >
           <GameCard>
@@ -32,7 +64,7 @@ const Welcome = () => {
               A brief intro to how the game is played!
             </Text>
           </GameCard>
-          <GameCard>
+          <GameCard onClick={() => history.push("/user/playlists")}>
             <img
               src={iconSong}
               style={{
@@ -49,7 +81,7 @@ const Welcome = () => {
               Songs on a playlist you choose are shuffled for you to guess!
             </Text>
           </GameCard>
-          <GameCard>
+          <GameCard onClick={() => history.push("/user/playlists")}>
             <img
               src={iconPlaylist}
               style={{

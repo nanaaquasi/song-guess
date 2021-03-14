@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import CustomCursor from "./components/CustomCursor";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+      <CustomCursor />
       <App />
     </Router>
   </React.StrictMode>,
