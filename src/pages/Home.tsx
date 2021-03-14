@@ -1,10 +1,11 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
 import { CardImage } from "../styled/Card";
 import { Button, Container, Heading, Stack, Text } from "../styled/Shared";
 
 const Home = () => {
-  const authUrl = `${process.env.REACT_APP_AUTH_URL}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&show_dialog=true`;
+  const authUrl = `${process.env.REACT_APP_AUTH_URL}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&show_dialog=true&scope=user-read-private%20user-read-email%20playlist-read-private%20playlist-read-collaborative`;
 
   const handleGrantPermission = () => {
     window.location.href = authUrl;
@@ -12,16 +13,22 @@ const Home = () => {
 
   return (
     <Container>
-      <Stack>
-        <h1>guesss.</h1>
-        <Stack spaceBetween style={{ marginTop: "10rem" }} isInline>
+      <Stack center>
+        <Navbar />
+        <Stack
+          spaceBetween
+          style={{ margin: "10rem auto 0 auto", width: "100%" }}
+          isInline
+          center
+        >
           <Stack
             center
+            style={{ margin: "0 auto", width: "100%" }}
             // style={{ marginBottom: "rem" }}
           >
             <Heading size={60} w='80%'>
               How well do you know your
-              <span style={{ color: "#00d41c" }}>playlists?</span>
+              <span style={{ color: "#00d41c" }}> playlists?</span>
             </Heading>
             <Text fontSize='24px' style={{ marginTop: "2rem", width: "45%" }}>
               Generate Spotify music quizzes to guess songs on your playlist!

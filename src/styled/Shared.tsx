@@ -8,6 +8,8 @@ type StackProps = {
   spaceBetween?: boolean;
   center?: boolean;
   justify?: string;
+  start?: boolean;
+  wrap?: boolean;
 };
 
 type ContainerProps = {
@@ -47,7 +49,7 @@ export const Stack = styled.div`
   width: 100%;
   position: relative;
   display: flex;
-  align-items: ${(props: StackProps) => (props.isInline ? "center" : "start")};
+  align-items: ${(props: StackProps) => (props.isInline ? "center" : "center")};
   flex-direction: ${(props: StackProps) => (props.isInline ? "row" : "column")};
   ${(props: StackProps) =>
     props.spaceBetween &&
@@ -61,11 +63,21 @@ export const Stack = styled.div`
     css`
       justify-content: center;
     `}
-
+    ${(props: StackProps) =>
+    props.wrap &&
+    css`
+      flex-wrap: wrap;
+    `}
   ${(props: StackProps) =>
     props.alignTop &&
     css`
       align-items: top;
+    `};
+
+  ${(props: StackProps) =>
+    props.start &&
+    css`
+      align-items: start;
     `};
 
   ${(props: StackProps) =>
@@ -91,7 +103,7 @@ export const Cursor = styled.div`
   border-radius: 100%;
   background-color: transparent !important;
   border: 3px solid #00af17 !important;
-  transition: all 0.1s ease-in-out;
+  transition: all 2s ease-in-out;
   transition-property: width, height, border;
   will-change: width, height, transform, border;
   pointer-events: none;
@@ -143,7 +155,7 @@ export const Heading = styled.h1`
   font-weight: bold;
   line-height: 1.2;
   font-family: "Euclid Square";
-  text-align: center;
+  /* text-align: center; */
 `;
 
 export const Text = styled.p`

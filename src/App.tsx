@@ -1,11 +1,10 @@
 import React from "react";
-import CustomCursor from "./components/CustomCursor";
-import Router from "./navigator";
+import Navigator from "./navigator";
 
 function App() {
   return (
     <>
-      <Router />
+      <Navigator />
     </>
   );
 }

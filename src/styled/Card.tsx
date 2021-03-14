@@ -40,3 +40,43 @@ export const GameCard = styled.div`
   }
   /* border: 0.2px solid #616161; */
 `;
+
+export const PlaylistWrapper = styled.div`
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+  &:hover {
+    transform: translateY(-0.2rem);
+  }
+`;
+export const PlaylistCard = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 4rem;
+  background-color: rgba(0, 14, 6, 0.4);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+  }
+
+  > img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin-right: 8px;
+
+    &:hover {
+      filter: grayscale(80%);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 700px) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+`;

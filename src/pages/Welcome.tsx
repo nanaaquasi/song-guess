@@ -5,20 +5,18 @@ import iconHelp from "../assets/icons/help.png";
 import iconSong from "../assets/icons/song.png";
 import iconPlaylist from "../assets/icons/playlist.png";
 import { getCurrentUserProfile } from "../api/spotify.service";
-
-type Image = {
-  height?: string;
-  width?: string;
-  url: string;
-};
-
-type User = {
-  name: string;
-  profileImage: Image;
-};
+import { User } from "../utils/dts";
+import { useHistory } from "react-router";
+import Navbar from "../components/Navbar";
 
 const Welcome = () => {
-  const [user, setCurrentUser] = React.useState<User>();
+  const [user, setCurrentUser] = React.useState<User>({
+    name: "",
+    profileImage: {},
+  });
+
+  const history = useHistory();
+
   React.useEffect(() => {
     const getUserProfile = async (): Promise<void> => {
       try {
@@ -42,18 +40,7 @@ const Welcome = () => {
   return (
     <Container>
       <Stack>
-        <Stack isInline spaceBetween>
-          <Stack isInline>
-            <h1>guesss.</h1>
-          </Stack>
-          <Stack isInline flexEnd>
-            <Avatar>
-              <AvatarImage src={user?.profileImage.url} />
-            </Avatar>
-            <h3>{user?.name}</h3>
-          </Stack>
-        </Stack>
-
+        <Navbar currentUser={user}></Navbar>
         <Stack
           isInline
           spaceBetween
@@ -76,7 +63,7 @@ const Welcome = () => {
               A brief intro to how the game is played!
             </Text>
           </GameCard>
-          <GameCard>
+          <GameCard onClick={() => history.push("/user/playlists")}>
             <img
               src={iconSong}
               style={{
@@ -93,7 +80,7 @@ const Welcome = () => {
               Songs on a playlist you choose are shuffled for you to guess!
             </Text>
           </GameCard>
-          <GameCard>
+          <GameCard onClick={() => history.push("/user/playlists")}>
             <img
               src={iconPlaylist}
               style={{

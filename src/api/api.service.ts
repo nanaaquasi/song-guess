@@ -12,6 +12,18 @@ const headers = () => {
   };
 };
 
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error && error.response && error.response.status === 401) {
+      window.location.replace("/");
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const dispatch = (data: any, url: string) =>
   axios.post(url, data, headers());
 export const receive = (url: string) => axios.get(url, headers());
