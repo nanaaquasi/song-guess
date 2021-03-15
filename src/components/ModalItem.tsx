@@ -16,6 +16,12 @@ const StyledModal = styled.div`
   align-items: center;
   justify-content: center;
 
+  @media (max-width: 700px) {
+    width: 300px;
+    height: 300px;
+    margin: 2rem auto;
+  }
+
   margin: 4rem auto;
 
   .modal-background {

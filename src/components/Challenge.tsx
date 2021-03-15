@@ -20,6 +20,7 @@ import { AnswerCard } from "../styled/Card";
 
 type ChallengeProps = {
   tracks: Track[];
+  increaseCount: (current: number) => void;
 };
 type PlayState = "initial" | "playing" | "paused";
 
@@ -46,8 +47,12 @@ type QuizOptions = {
 
 type QuizStatus = "correct" | "wrong";
 
-const Challenge: FC<ChallengeProps> = ({ tracks }: ChallengeProps) => {
+const Challenge: FC<ChallengeProps> = ({
+  tracks,
+  increaseCount,
+}: ChallengeProps) => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+  const [count, increaseQuesCount] = React.useState<number>(1);
   const [currentTrack, setCurrentTrack] = React.useState<Track>(
     tracks[currentIndex]
   );
@@ -67,10 +72,14 @@ const Challenge: FC<ChallengeProps> = ({ tracks }: ChallengeProps) => {
   const handleOnSelectSong = (id: string) => {
     if (playState === "playing" || playState === "paused") {
       setSelected(id);
+
       id === options.answer.track.id
         ? setStatus("correct")
         : setStatus("wrong");
       setOpenModal(true);
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      lottie.stop("player");
       console.log("Selected", id, options.answer.track.id);
     }
   };
@@ -93,9 +102,10 @@ const Challenge: FC<ChallengeProps> = ({ tracks }: ChallengeProps) => {
           ),
         ]),
       });
-  }, [tracks, currentIndex]);
+  }, [tracks, currentIndex, count]);
 
   currentAudio.addEventListener("timeupdate", () => {
+    console.log(currentAudio.currentTime);
     if (Math.floor(currentAudio.currentTime) === 7) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -128,7 +138,9 @@ const Challenge: FC<ChallengeProps> = ({ tracks }: ChallengeProps) => {
     currentAudio.currentTime = 0;
     lottie.stop("player");
     setPlayState("paused");
-    setCurrentIndex(Math.floor(Math.random() * tracks.length) + 1);
+    increaseQuesCount(count + 1);
+    increaseCount(count);
+    setCurrentIndex(Math.floor(Math.random() * tracks.length - 1) + 1);
   };
 
   return (
