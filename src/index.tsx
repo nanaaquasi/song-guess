@@ -9,7 +9,6 @@ import CustomCursor from "./components/CustomCursor";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <CustomCursor />
       <App />
     </Router>
   </React.StrictMode>,

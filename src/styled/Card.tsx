@@ -1,8 +1,16 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 type CardProps = {
   width?: string;
   height?: string;
+};
+
+type TrackCardProps = {
+  selected?: boolean;
+};
+
+type AnswerCardProps = {
+  bg?: string;
 };
 
 export const CardImage = styled.div`
@@ -111,4 +119,47 @@ export const PlaylistCard = styled.div`
       height: 50px;
     }
   }
+`;
+
+export const TrackCard = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 14, 6, 0.4);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+
+  ${(props: TrackCardProps) =>
+    props.selected &&
+    css`
+      border: "2px solid yellowgreen";
+    `};
+
+  &:hover {
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+  }
+
+  > * img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+
+    &:hover {
+      filter: grayscale(80%);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 700px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+`;
+
+export const AnswerCard = styled.div`
+  background: ${(props: AnswerCardProps) => props.bg};
+  padding: 4rem;
+  border-radius: 20px;
 `;

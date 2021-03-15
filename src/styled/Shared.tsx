@@ -32,7 +32,7 @@ type TextProps = {
 };
 
 type ButtonProps = {
-  type?: "primary" | "secondary";
+  type?: "primary" | "secondary" | "tertiary";
 };
 
 // export const Stack = styled.div`
@@ -117,7 +117,7 @@ export const Cursor = styled.div`
   transition-property: width, height, border;
   will-change: width, height, transform, border;
   pointer-events: none;
-  z-index: 999;
+  z-index: 9999;
 
   &.pointer {
     border: 4px solid #00af17 !important;
@@ -202,16 +202,24 @@ export const Text = styled.p`
 `;
 
 export const Button = styled.div`
-  background-color: #33ff4e;
-  color: rgb(0, 14, 6);
+  background-color: ${(props: ButtonProps) =>
+    props.type === "secondary"
+      ? "#64c986"
+      : props.type === "tertiary"
+      ? "#fff"
+      : "#33ff4e"};
+
+  color: ${(props: ButtonProps) =>
+    props.type === "secondary" ? "rgb(0, 14, 6)" : "rgb(0, 14, 6)"};
   padding: 1rem 5rem;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.2s;
+  font-weight: 600;
 
   &:hover {
-    background-color: #00af17;
-    color: rgb(248, 255, 251);
+    /* background-color: #00af17;
+    color: rgb(248, 255, 251); */
     transform: scale(1.05);
   }
 `;
