@@ -26,15 +26,26 @@ body {
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 @media (max-width: 700px) {
  body {
   max-height: 100vh;
-  overflow: hidden;
+  overflow-y: scroll;
   background-position: 100%;
  }
+ *,
+ *::before,
+ *::after {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   text-decoration: none;
+   cursor: none;
+ }
+ 
+
 }
 
 
