@@ -45,7 +45,7 @@ const Quiz = () => {
       },
     },
   ]);
-  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
+  const [currentQuestion, setCurrentQuestion] = React.useState<number>(1);
   const [currentTrack, setCurrentTrack] = React.useState<Track>({
     added_at: "",
     track: {
@@ -55,6 +55,10 @@ const Quiz = () => {
       },
     },
   });
+
+  const showCurrent = (current: number) => {
+    setCurrentQuestion(current);
+  };
 
   React.useEffect(() => {
     console.log(params);
@@ -91,16 +95,17 @@ const Quiz = () => {
     <Container>
       <Stack>
         <Stack spaceBetween>
-          <Heading size={72}>1.</Heading>
+          <Heading size={72}>{currentQuestion}.</Heading>
         </Stack>
         <div
+          className='player'
           id='player'
           style={{
-            transform: "scale(1.5)",
+            transform: "scale(1.1)",
             marginTop: "-10rem",
           }}
         ></div>
-        <Challenge tracks={tracks} />
+        <Challenge tracks={tracks} increaseCount={showCurrent} />
       </Stack>
     </Container>
   );
