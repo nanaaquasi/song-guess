@@ -14,6 +14,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.8",
     "axios": "^0.21.1",
+    "dateformat": "^4.5.1",
     "env-cmd": "^10.1.0",
     "lottie-web": "^5.7.6",
     "react": "^17.0.1",
