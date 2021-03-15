@@ -11,7 +11,7 @@ const Navbar: FC<NavProps> = ({ currentUser }: NavProps): ReactElement => {
   return (
     <Stack isInline spaceBetween>
       <Stack isInline>
-        <h1>guesss.</h1>
+        <h1 style={{ color: "#1bf538" }}>guessify.</h1>
       </Stack>
       {currentUser && (
         <Stack isInline flexEnd>

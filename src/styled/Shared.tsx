@@ -202,12 +202,15 @@ export const Text = styled.p`
 `;
 
 export const Button = styled.div`
-  background-color: #33ff4e;
-  color: rgb(0, 14, 6);
+  background-color: ${(props: ButtonProps) =>
+    props.type === "secondary" ? "#64c986" : "#33ff4e"};
+  color: ${(props: ButtonProps) =>
+    props.type === "secondary" ? "rgb(0, 14, 6)" : "rgb(0, 14, 6)"};
   padding: 1rem 5rem;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.2s;
+  font-weight: 600;
 
   &:hover {
     background-color: #00af17;
