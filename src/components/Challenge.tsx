@@ -17,6 +17,7 @@ import { shuffleItems } from "../utils/services";
 import styled from "styled-components";
 import CustomModal from "./CustomModal";
 import { AnswerCard } from "../styled/Card";
+import { useWindowDimensions } from "../utils/hooks";
 
 type ChallengeProps = {
   tracks: Track[];
@@ -33,10 +34,10 @@ const OptionsContainer = styled.div`
 
   @media (max-width: 700px) {
     width: 100%;
-    margin: 6rem auto 0 auto;
+    margin: 12rem auto 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 0.5rem;
+    grid-gap: 1rem;
   }
 `;
 
@@ -45,7 +46,7 @@ type QuizOptions = {
   options: Track[];
 };
 
-type QuizStatus = "correct" | "wrong";
+type QuizStatus = "correct" | "wrong" | "none";
 
 const Challenge: FC<ChallengeProps> = ({
   tracks,
@@ -59,7 +60,7 @@ const Challenge: FC<ChallengeProps> = ({
   const currentAudio = new Audio(tracks[currentIndex].track?.preview_url);
   const [playState, setPlayState] = React.useState<PlayState>("initial");
   const [selected, setSelected] = React.useState<string>("");
-  const [status, setStatus] = React.useState<QuizStatus>("wrong");
+  const [status, setStatus] = React.useState<QuizStatus>("none");
   const [isOpen, setOpenModal] = React.useState<boolean>(false);
   const [options, setOptions] = React.useState<QuizOptions>({
     options: [],
@@ -69,23 +70,12 @@ const Challenge: FC<ChallengeProps> = ({
     },
   });
 
-  const handleOnSelectSong = (id: string) => {
-    if (playState === "playing" || playState === "paused") {
-      setSelected(id);
-
-      id === options.answer.track.id
-        ? setStatus("correct")
-        : setStatus("wrong");
-      setOpenModal(true);
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      lottie.stop("player");
-      console.log("Selected", id, options.answer.track.id);
-    }
-  };
+  const { width } = useWindowDimensions();
 
   React.useEffect(() => {
     console.log(tracks);
+    setPlayState("initial");
+    setStatus("none");
 
     setCurrentTrack(tracks[currentIndex]);
 
@@ -102,6 +92,15 @@ const Challenge: FC<ChallengeProps> = ({
           ),
         ]),
       });
+
+    // console.log("count", count);
+    // const timer = setTimeout(() => {
+    //   if (status === "none") {
+    //     setStatus("wrong");
+    //     setOpenModal(true);
+    //   }
+    // }, 15000);
+    // return () => clearTimeout(timer);
   }, [tracks, currentIndex, count]);
 
   currentAudio.addEventListener("timeupdate", () => {
@@ -116,12 +115,12 @@ const Challenge: FC<ChallengeProps> = ({
   const playSound = () => {
     console.log(playState);
     if (playState === "paused" || playState === "initial") {
+      setPlayState("paused");
       currentAudio.play();
       lottie.play("player");
-      setPlayState("paused");
     } else {
-      currentAudio.pause();
       setPlayState("playing");
+      currentAudio.pause();
     }
   };
 
@@ -130,6 +129,23 @@ const Challenge: FC<ChallengeProps> = ({
     currentAudio.currentTime = 0;
     lottie.stop("player");
     setPlayState("paused");
+  };
+
+  const handleOnSelectSong = (id: string) => {
+    if (playState === "playing" || playState === "paused") {
+      console.log("timeee", currentAudio.currentTime, "id", id);
+      setSelected(id);
+      id === options.answer.track.id
+        ? setStatus("correct")
+        : setStatus("wrong");
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+
+      setOpenModal(true);
+
+      lottie.stop("player");
+      console.log("Selected", id, options.answer.track.id);
+    }
   };
 
   const handleNextSong = () => {
@@ -144,7 +160,12 @@ const Challenge: FC<ChallengeProps> = ({
   };
 
   return (
-    <Stack center>
+    <Stack
+      center
+      margin={`${
+        width <= 700 ? "6rem auto 0 auto !important" : "0rem auto 0 auto"
+      }`}
+    >
       <CustomModal isOpen={isOpen}>
         <AnswerCard bg={generateRandColor()}>
           <Stack start>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { logout } from "./auth.service";
 import JwtService from "./jwt.service";
 
 const token = JwtService.getItem("token");
@@ -18,6 +19,7 @@ axios.interceptors.response.use(
   },
   (error) => {
     if (error && error.response && error.response.status === 401) {
+      logout();
       window.location.replace("/");
     }
     return Promise.reject(error);

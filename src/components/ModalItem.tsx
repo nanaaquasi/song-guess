@@ -17,9 +17,9 @@ const StyledModal = styled.div`
   justify-content: center;
 
   @media (max-width: 700px) {
-    width: 300px;
+    width: 98vw;
     height: 300px;
-    margin: 2rem auto;
+    margin: auto auto;
   }
 
   margin: 4rem auto;
@@ -42,6 +42,10 @@ const StyledModal = styled.div`
     width: 100%;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+
+    @media (max-width: 700px) {
+      border-radius: 10px;
+    }
   }
 `;
 

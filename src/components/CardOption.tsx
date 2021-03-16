@@ -13,10 +13,14 @@ type OptionProps = {
 const CardOption: FC<OptionProps> = (props: OptionProps) => {
   return (
     <TrackCard selected={props.selected === props.id}>
-      <Stack isInline>
+      <Stack isInline start>
         <img src={props.cover}></img>
         <Stack start>
-          <Text color='greenyellow' fontSize='18px'>
+          <Text
+            color='greenyellow'
+            fontSize='18px'
+            style={{ textAlign: "start" }}
+          >
             {props.artist}
           </Text>
           <Text

@@ -55,11 +55,10 @@ export const Stack = styled.div`
   align-items: ${(props: StackProps) => (props.isInline ? "center" : "center")};
   flex-direction: ${(props: StackProps) => (props.isInline ? "row" : "column")};
 
-  @media (max-width: 700px) {
-    flex-direction: ${(props: StackProps) => props.isInline && "column"};
-    margin: ${(props: StackProps) =>
-      props.margin && "4rem auto 0 auto !important"};
-  }
+  /* @media (max-width: 700px) {
+    flex-direction: ${(props: StackProps) => props.isInline && "row"};
+    margin: ${(props: StackProps) => props.margin && "4rem auto 0 auto"};
+  } */
 
   ${(props: StackProps) =>
     props.spaceBetween &&
@@ -88,6 +87,7 @@ export const Stack = styled.div`
     props.start &&
     css`
       align-items: start;
+      justify-content: start;
     `};
 
   ${(props: StackProps) =>
