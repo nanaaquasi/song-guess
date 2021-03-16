@@ -15,6 +15,7 @@ import CardOption from "../components/CardOption";
 import styled from "styled-components";
 import Challenge from "../components/Challenge";
 import CustomModal from "../components/CustomModal";
+import { useWindowDimensions } from "../utils/hooks";
 
 type Params = {
   id: string;
@@ -57,8 +58,10 @@ const Quiz = () => {
   });
 
   const showCurrent = (current: number) => {
-    setCurrentQuestion(current);
+    setCurrentQuestion(current + 1);
   };
+
+  const { width } = useWindowDimensions();
 
   React.useEffect(() => {
     console.log(params);
@@ -66,7 +69,7 @@ const Quiz = () => {
     lottie.loadAnimation({
       container: document.getElementById("player") as Element,
       autoplay: false,
-      path: "https://assets6.lottiefiles.com/packages/lf20_pzrstZ.json",
+      path: "https://assets5.lottiefiles.com/packages/lf20_pzrstZ.json",
       name: "player",
       renderer: "svg",
       loop: true,
@@ -79,7 +82,7 @@ const Quiz = () => {
         console.log("tracks", data);
         const { items } = data;
 
-        const shuffledTracks = shuffleItems(items).slice(0, 20);
+        const shuffledTracks = shuffleItems(items);
 
         shuffledTracks && setTracks(shuffledTracks);
 
@@ -94,7 +97,12 @@ const Quiz = () => {
   return (
     <Container>
       <Stack>
-        <Stack spaceBetween>
+        <Stack
+          spaceBetween
+          margin={`${
+            width <= 700 ? "2rem auto 0 auto !important" : "0rem auto 0 auto"
+          }`}
+        >
           <Heading size={72}>{currentQuestion}.</Heading>
         </Stack>
         <div

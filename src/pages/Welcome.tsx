@@ -8,6 +8,7 @@ import { getCurrentUserProfile } from "../api/spotify.service";
 import { User } from "../utils/dts";
 import { useHistory } from "react-router";
 import Navbar from "../components/Navbar";
+import { useWindowDimensions } from "../utils/hooks";
 
 const Welcome = () => {
   const [user, setCurrentUser] = React.useState<User>({
@@ -16,6 +17,7 @@ const Welcome = () => {
   });
 
   const history = useHistory();
+  const { width } = useWindowDimensions();
 
   React.useEffect(() => {
     const getUserProfile = async (): Promise<void> => {
@@ -42,10 +44,11 @@ const Welcome = () => {
       <Stack>
         <Navbar currentUser={user}></Navbar>
         <Stack
-          isInline
+          isInline={width > 700 ? true : false}
           spaceBetween
-          margin='15rem auto 0 auto'
-          style={{ width: "85%", margin: "15rem auto 0 auto" }}
+          // margin='15rem auto 0 auto'
+          margin={`${width <= 700 ? "8rem auto 0 auto" : "15rem auto 0 auto"}`}
+          style={{ width: "85%" }}
         >
           <GameCard>
             <img
@@ -81,7 +84,7 @@ const Welcome = () => {
               Songs on a playlist you choose are shuffled for you to guess!
             </Text>
           </GameCard>
-          <GameCard onClick={() => history.push("/user/playlists")}>
+          <GameCard>
             <img
               src={iconPlaylist}
               style={{
@@ -95,6 +98,13 @@ const Welcome = () => {
               Playlist Queue
             </Text>
             <Text fontSize='20px'>Guess the next song on your playlist!</Text>
+            <Text
+              fontSize='16px'
+              color='yellowgreen'
+              style={{ margin: "6px 0" }}
+            >
+              Coming soon!
+            </Text>
           </GameCard>
         </Stack>
       </Stack>

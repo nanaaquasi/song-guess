@@ -20,16 +20,16 @@ export const CardImage = styled.div`
   overflow: hidden;
 
   @media (max-width: 700px) {
-    width: 250px !important;
-    height: 250px !important;
+    width: 300px !important;
+    height: 300px !important;
     margin-top: 0 !important;
   }
 
   > img {
     @media (max-width: 700px) {
       transform: translate(0rem, 0rem) !important;
-      width: 250px !important;
-      height: 250px !important;
+      width: 300px !important;
+      height: 300px !important;
       object-fit: contain !important;
       object-position: center !important;
     }
@@ -84,6 +84,10 @@ export const GameCard = styled.div`
 export const PlaylistWrapper = styled.div`
   &:not(:last-child) {
     margin-right: 2rem;
+
+    @media (max-width: 700px) {
+      margin-right: 0.5rem;
+    }
   }
   &:hover {
     transform: translateY(-0.2rem);
@@ -98,6 +102,18 @@ export const PlaylistCard = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease-in-out;
+
+  * > p {
+    @media (max-width: 700px) {
+      text-align: start;
+    }
+  }
+
+  @media (max-width: 700px) {
+    width: 350px !important;
+    margin-top: 2rem;
+    align-items: center;
+  }
 
   &:hover {
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
@@ -136,6 +152,12 @@ export const TrackCard = styled.div`
       border: "2px solid yellowgreen";
     `};
 
+  @media (max-width: 700px) {
+    padding: 1rem;
+    align-items: flex-start;
+    justify-content: start;
+  }
+
   &:hover {
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
   }
@@ -152,8 +174,9 @@ export const TrackCard = styled.div`
     }
 
     @media (max-width: 700px) {
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
+      margin: auto 1.5rem auto 0;
     }
   }
 `;
@@ -162,4 +185,10 @@ export const AnswerCard = styled.div`
   background: ${(props: AnswerCardProps) => props.bg};
   padding: 4rem;
   border-radius: 20px;
+
+  & > * img {
+    @media (max-width: 700px) {
+      width: 100px !important;
+    }
+  }
 `;
