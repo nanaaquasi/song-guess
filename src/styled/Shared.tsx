@@ -135,7 +135,7 @@ export const Container = styled.div`
   width: auto;
   height: 100%;
   margin: 0 auto;
-  padding: 1rem 3.2rem;
+  padding: 1rem 3rem;
 
   ${(props: ContainerProps) =>
     props.fluid &&
