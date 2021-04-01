@@ -4,6 +4,8 @@ export const getCurrentUserProfile = () => receive("/me");
 
 export const getUserPlaylists = () => receive("/me/playlists");
 
+export const getSinglePlaylist = (id: string) => receive(`playlists/${id}`);
+
 export const getTracksFromPlaylist = (id: string) =>
   receive(
     `playlists/${id}/tracks?market=ES&fields=items(added_at,track(id, preview_url, name, artists, popularity, duration_ms, album(name,href,images)))&limit=40&offset=5`
