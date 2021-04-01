@@ -40,7 +40,15 @@ const PlaylistSelect = () => {
       ) : (
         <>
           <Navbar />
-          <Stack start style={{ marginTop: "60px" }}>
+          <Stack
+            start
+            style={{
+              marginTop: "60px",
+              height: "80vh",
+              overflowY: "scroll",
+            }}
+            className='playlist_scroll'
+          >
             <Heading size={52} style={{ alignSelf: "flex-start" }}>
               Choose a <span style={{ color: "#00d41c" }}> playlist.</span>
             </Heading>
