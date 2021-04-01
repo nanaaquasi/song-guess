@@ -116,7 +116,7 @@ const ScoresPage = () => {
             </Text>
             <Button
               type='secondary'
-              onClick={() => history.push("/welcome")}
+              onClick={() => history.push("/user/playlists")}
               style={{
                 alignSelf: "start",
                 width: `${width <= 700 ? "100%" : "40%"}`,
