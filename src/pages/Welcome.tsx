@@ -50,7 +50,7 @@ const Welcome = () => {
           margin={`${width <= 700 ? "8rem auto 0 auto" : "15rem auto 0 auto"}`}
           style={{ width: "85%" }}
         >
-          <GameCard>
+          <GameCard onClick={() => history.push("/how-to")}>
             <img
               src={iconHelp}
               style={{

@@ -25,7 +25,6 @@ type ChallengeProps = {
   tracks: Track[];
   increaseCount: (current: number) => void;
 };
-type PlayState = boolean;
 
 const OptionsContainer = styled.div`
   width: 80%;
@@ -59,6 +58,8 @@ type Scores = {
 
 type QuizStatus = "correct" | "wrong" | "none";
 
+type PlayState = "initial" | "playing" | "paused";
+
 type RouteParams = {
   id?: string;
 };
@@ -70,7 +71,9 @@ const Challenge: FC<ChallengeProps> = ({
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [count, increaseQuesCount] = React.useState<number>(1);
   const [streaks, setStreaks] = React.useState<number>(0);
-  const [playState, setPlayState] = React.useState<PlayState>(false);
+  const [playState, setPlayState] = React.useState<boolean>(false);
+  const [playingState, setPlayingState] = React.useState<PlayState>("initial");
+
   const [audioSelectedTime, setAudiSelectTime] = React.useState(0);
   const [totalScore, setTotalScore] = React.useState<Scores>({
     total: 0,
@@ -96,6 +99,7 @@ const Challenge: FC<ChallengeProps> = ({
 
   React.useEffect(() => {
     setStatus("none");
+    setPlayingState("initial");
 
     tracks.length > 1 &&
       setOptions({
@@ -140,9 +144,11 @@ const Challenge: FC<ChallengeProps> = ({
   if (audioRef.current !== null) {
     audioRef.current.onplaying = function () {
       lottie.play("player");
+      setPlayingState("playing");
     };
     audioRef.current.onpause = function () {
       lottie.stop("player");
+      setPlayingState("paused");
     };
   }
 
@@ -160,12 +166,14 @@ const Challenge: FC<ChallengeProps> = ({
   };
 
   const handleOnSelectSong = (id: string) => {
-    if (audioRef.current) audioRef.current.pause();
+    if (playingState === "playing" || playingState === "paused") {
+      if (audioRef.current) audioRef.current.pause();
 
-    setSelected(id);
-    id === options.answer.track.id
-      ? handleCorrectChoice(Math.floor(audioRef.current?.currentTime))
-      : handleWrongChoice(Math.floor(audioRef.current?.currentTime));
+      setSelected(id);
+      id === options.answer.track.id
+        ? handleCorrectChoice(Math.floor(audioRef.current?.currentTime))
+        : handleWrongChoice(Math.floor(audioRef.current?.currentTime));
+    }
   };
 
   const handleCorrectChoice = (time: number): void => {

@@ -1,8 +1,8 @@
 var dateFormat = require("dateformat");
 
 export type Image = {
-  height?: string;
-  width?: string;
+  height?: string | number;
+  width?: string | number;
   url?: string;
 };
 
@@ -72,6 +72,125 @@ const COLORS = [
   "#ED303C",
   "#2eb67a",
   "#332e4c",
+];
+
+export const TEST_TRACKS: Track[] = [
+  {
+    added_at: "",
+    track: {
+      album: {
+        href: "https://api.spotify.com/v1/albums/4OTAx9un4e6NfoHuVRiOrC",
+        images: [
+          {
+            height: 640,
+            url:
+              "https://i.scdn.co/image/ab67616d0000b27394c9217a398f5174757c0c78",
+            width: 640,
+          },
+        ],
+        name: "Love In The Future (Expanded Edition)",
+      },
+      artists: [
+        {
+          id: "5y2Xq6xcjJb2jVM54GHK3t",
+          name: "John Legend",
+          uri: "spotify:artist:5y2Xq6xcjJb2jVM54GHK3t",
+        },
+      ],
+      id: "3U4isOIWM3VvDubwSI3y7a",
+      name: "All of Me",
+      popularity: 87,
+      preview_url:
+        "https://p.scdn.co/mp3-preview/488c53471e56ff9f629652691444438951e880bb?cid=774b29d4f13844c495f206cafdad9c86",
+    },
+  },
+  {
+    added_at: "",
+    track: {
+      album: {
+        href: "https://api.spotify.com/v1/albums/7pBwUBRsdgtIyX7tGOmaoy",
+        images: [
+          {
+            height: 640,
+            url:
+              "https://i.scdn.co/image/ab67616d0000b273452bd32b5454a87f36ad8e8c",
+            width: 640,
+          },
+        ],
+        name: "Lady Day: The Complete Billie Holiday On Columbia (1933-1944)",
+      },
+      artists: [
+        {
+          id: "5y2Xq6xcjJb2jVM54GHK3t",
+          name: "Billie Holiday",
+          uri: "spotify:artist:1YzCsTRb22dQkh9lghPIrp",
+        },
+      ],
+      id: "1LGqJ3nvxpVXDWpEzq4DJD",
+      name: "All of Me",
+      popularity: 65,
+      preview_url:
+        "https://p.scdn.co/mp3-preview/5b6f30e20eeb944b590e28cc4fc3b884efbf5454?cid=774b29d4f13844c495f206cafdad9c86",
+    },
+  },
+  {
+    added_at: "",
+    track: {
+      album: {
+        href: "https://api.spotify.com/v1/albums/0JcMyAnJRTisEjYf9xEwkf",
+        images: [
+          {
+            height: 640,
+            url:
+              "https://i.scdn.co/image/ab67616d0000b27304872b5f9c717fd2626f5058",
+            width: 640,
+          },
+        ],
+        name: "Love Someone",
+      },
+      artists: [
+        {
+          id: "5y2Xq6xcjJb2jVM54GHK3t",
+          name: "Lukas Graham",
+          uri: "spotify:artist:25u4wHJWxCA9vO0CzxAbK7",
+        },
+      ],
+      id: "2JqnpexlO9dmvjUMCaLCLJ",
+      name: "Love Someone",
+      popularity: 65,
+      preview_url:
+        "https://p.scdn.co/mp3-preview/375df25b157b92d7a25a77b5114033904eba11bc?cid=b238b4dd0cd941b2a4945d31cdbdec17",
+    },
+  },
+  {
+    added_at: "",
+    track: {
+      album: {
+        href: "https://api.spotify.com/v1/albums/2yQVxAYfAqBkUQyR5ROpAf",
+        images: [
+          {
+            height: 640,
+            url:
+              "https://i.scdn.co/image/ab67616d0000b273622298782c28f18837e4cc9c",
+            width: 640,
+          },
+        ],
+        name: "Playing the Hits of Rihanna",
+      },
+      artists: [
+        {
+          id: "0rpos3tdyyc5uoxMM8Ptg9",
+          name: "Tune Robbers",
+          uri: "spotify:artist:0rpos3tdyyc5uoxMM8Ptg9",
+        },
+      ],
+      id: "54u7NWUDaxf5RI2vcS80t1",
+      name: "Love the Way You Lie - Piano Version",
+      popularity: 7,
+      preview_url:
+        "https://p.scdn.co/mp3-preview/9141e3bb3426b66224d8ecb5265ce3b6b6bd4b81?cid=b238b4dd0cd941b2a4945d31cdbdec17",
+    },
+  },
 ];
 
 const correctMessages = [

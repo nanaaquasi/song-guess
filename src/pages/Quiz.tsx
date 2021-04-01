@@ -69,8 +69,7 @@ const Quiz = () => {
     lottie.loadAnimation({
       container: document.getElementById("player") as Element,
       autoplay: false,
-      path:
-        "https://srv-store3.gofile.io/download/vBWKZi/46f70f435376e76c9fe97dd89fdf6ef3/lf30_editor_1zulbsra.json",
+      path: "https://assets5.lottiefiles.com/packages/lf20_biqx8wpr.json",
       name: "player",
       renderer: "svg",
       loop: true,
