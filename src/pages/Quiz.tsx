@@ -113,7 +113,11 @@ const Quiz = () => {
             marginTop: "-10rem",
           }}
         ></div>
-        <Challenge tracks={tracks} increaseCount={showCurrent} />
+        {isFetchLoading ? (
+          <Loader />
+        ) : (
+          <Challenge tracks={tracks} increaseCount={showCurrent} />
+        )}
       </Stack>
     </Container>
   );

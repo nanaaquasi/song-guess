@@ -18,35 +18,50 @@ import styled from "styled-components";
 import CustomModal from "./CustomModal";
 import { AnswerCard } from "../styled/Card";
 import { useWindowDimensions } from "../utils/hooks";
+import { useHistory, useParams } from "react-router";
+import { URLSearchParams } from "node:url";
 
 type ChallengeProps = {
   tracks: Track[];
   increaseCount: (current: number) => void;
 };
-type PlayState = "initial" | "playing" | "paused";
+type PlayState = boolean;
 
 const OptionsContainer = styled.div`
   width: 80%;
-  margin: 10rem auto 0 auto;
+  margin: 5rem auto 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 50%);
   grid-gap: 1rem;
 
   @media (max-width: 700px) {
     width: 100%;
-    margin: 12rem auto 0 auto;
+    margin: 6rem auto 0 auto;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
   }
 `;
 
+const CORRECT_SHORTEST_TIME_SCORE = 100;
+const CORRECT_LONGEST_TIME_SCORE = 70;
+const CORRECT_STREAK_SCORE = 120;
+
 type QuizOptions = {
   answer: Track;
   options: Track[];
 };
 
+type Scores = {
+  total: number;
+  newScore: number;
+};
+
 type QuizStatus = "correct" | "wrong" | "none";
+
+type RouteParams = {
+  id?: string;
+};
 
 const Challenge: FC<ChallengeProps> = ({
   tracks,
@@ -54,11 +69,13 @@ const Challenge: FC<ChallengeProps> = ({
 }: ChallengeProps) => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
   const [count, increaseQuesCount] = React.useState<number>(1);
-  const [currentTrack, setCurrentTrack] = React.useState<Track>(
-    tracks[currentIndex]
-  );
-  const currentAudio = new Audio(tracks[currentIndex].track?.preview_url);
-  const [playState, setPlayState] = React.useState<PlayState>("initial");
+  const [streaks, setStreaks] = React.useState<number>(0);
+  const [playState, setPlayState] = React.useState<PlayState>(false);
+  const [audioSelectedTime, setAudiSelectTime] = React.useState(0);
+  const [totalScore, setTotalScore] = React.useState<Scores>({
+    total: 0,
+    newScore: 0,
+  });
   const [selected, setSelected] = React.useState<string>("");
   const [status, setStatus] = React.useState<QuizStatus>("none");
   const [isOpen, setOpenModal] = React.useState<boolean>(false);
@@ -70,14 +87,15 @@ const Challenge: FC<ChallengeProps> = ({
     },
   });
 
+  const history = useHistory();
+
+  const params: RouteParams = useParams();
+
+  const audioRef = React.useRef<HTMLAudioElement>(null!);
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
-    console.log(tracks);
-    setPlayState("initial");
     setStatus("none");
-
-    setCurrentTrack(tracks[currentIndex]);
 
     tracks.length > 1 &&
       setOptions({
@@ -93,7 +111,11 @@ const Challenge: FC<ChallengeProps> = ({
         ]),
       });
 
-    // console.log("count", count);
+    if (count === 11) {
+      history.push(`/scores/${params?.id}`, {
+        scores: totalScore.total,
+      });
+    }
     // const timer = setTimeout(() => {
     //   if (status === "none") {
     //     setStatus("wrong");
@@ -103,60 +125,112 @@ const Challenge: FC<ChallengeProps> = ({
     // return () => clearTimeout(timer);
   }, [tracks, currentIndex, count]);
 
-  currentAudio.addEventListener("timeupdate", () => {
-    console.log(currentAudio.currentTime);
-    if (Math.floor(currentAudio.currentTime) === 7) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      lottie.stop("player");
-    }
-  });
+  if (audioRef.current !== null) {
+    audioRef.current?.addEventListener("timeupdate", () => {
+      if (Math.floor(audioRef.current?.currentTime) === 7) {
+        audioRef.current?.pause();
+        audioRef.current.currentTime = 0;
+        lottie.stop("player");
+        setPlayState(false);
+        return;
+      }
+    });
+  }
 
-  const playSound = () => {
-    console.log(playState);
-    if (playState === "paused" || playState === "initial") {
-      setPlayState("paused");
-      currentAudio.play();
+  if (audioRef.current !== null) {
+    audioRef.current.onplaying = function () {
       lottie.play("player");
-    } else {
-      setPlayState("playing");
-      currentAudio.pause();
-    }
-  };
+    };
+    audioRef.current.onpause = function () {
+      lottie.stop("player");
+    };
+  }
 
-  const stopPlay = () => {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    lottie.stop("player");
-    setPlayState("paused");
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (audioRef.current?.paused && !playState) {
+        audioRef.current?.play();
+        setPlayState(true);
+      } else {
+        setPlayState(false);
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }
   };
 
   const handleOnSelectSong = (id: string) => {
-    if (playState === "playing" || playState === "paused") {
-      console.log("timeee", currentAudio.currentTime, "id", id);
-      setSelected(id);
-      id === options.answer.track.id
-        ? setStatus("correct")
-        : setStatus("wrong");
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
+    if (audioRef.current) audioRef.current.pause();
 
-      setOpenModal(true);
+    setSelected(id);
+    id === options.answer.track.id
+      ? handleCorrectChoice(Math.floor(audioRef.current?.currentTime))
+      : handleWrongChoice(Math.floor(audioRef.current?.currentTime));
+  };
 
-      lottie.stop("player");
-      console.log("Selected", id, options.answer.track.id);
+  const handleCorrectChoice = (time: number): void => {
+    setStatus("correct");
+    setStreaks(streaks + 1);
+    setOpenModal(true);
+
+    if (time >= 0 && time <= 3) {
+      setTotalScore(
+        (score): Scores => {
+          return {
+            total:
+              streaks >= 2
+                ? score.total + CORRECT_STREAK_SCORE
+                : score.total + CORRECT_SHORTEST_TIME_SCORE,
+            newScore:
+              streaks >= 2 ? CORRECT_STREAK_SCORE : CORRECT_SHORTEST_TIME_SCORE,
+          };
+        }
+      );
+    }
+
+    if (time >= 3 && time <= 7) {
+      setTotalScore(
+        (score): Scores => {
+          return {
+            total:
+              streaks >= 2
+                ? score.total + CORRECT_STREAK_SCORE
+                : score.total + CORRECT_LONGEST_TIME_SCORE,
+            newScore:
+              streaks >= 2 ? CORRECT_STREAK_SCORE : CORRECT_LONGEST_TIME_SCORE,
+          };
+        }
+      );
     }
   };
 
+  const handleWrongChoice = (time: number): void => {
+    setStatus("wrong");
+    setStreaks(0);
+    setOpenModal(true);
+    setTotalScore(
+      (score): Scores => {
+        return {
+          total: score.total + 0,
+          newScore: 0,
+        };
+      }
+    );
+  };
+
   const handleNextSong = () => {
-    setOpenModal(false);
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    lottie.stop("player");
-    setPlayState("paused");
     increaseQuesCount(count + 1);
     increaseCount(count);
     setCurrentIndex(Math.floor(Math.random() * tracks.length - 1) + 1);
+    setOpenModal(false);
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    lottie.stop("player");
+    setPlayState(false);
   };
 
   return (
@@ -183,8 +257,18 @@ const Challenge: FC<ChallengeProps> = ({
               {formatDate(options.answer.added_at)}{" "}
               {status === "wrong" && ", you should listen to it more!"}
             </Text>
+            {streaks >= 2 && (
+              <>
+                <Stack isInline center>
+                  <Text bold fontSize='24px' style={{ margin: ".5rem 0" }}>
+                    Streaks {streaks}
+                  </Text>
+                  <img src='https://img.icons8.com/emoji/48/000000/fire.png' />
+                </Stack>
+              </>
+            )}
             <Text bold fontSize='24px' style={{ margin: "2rem 0" }}>
-              Score: 100
+              Score: {totalScore.total} (+ {totalScore.newScore})
             </Text>
             <Stack isInline center>
               <img
@@ -219,16 +303,23 @@ const Challenge: FC<ChallengeProps> = ({
           </Stack>
         </AnswerCard>
       </CustomModal>
-      <Stack isInline center margin='-6rem 0'>
-        <Button onClick={playSound}>Play</Button>
-        <Button
-          onClick={stopPlay}
-          type='secondary'
-          style={{ marginLeft: "1rem" }}
-        >
-          Stop
+      <audio ref={audioRef} src={tracks[currentIndex].track?.preview_url} />
+      <Text
+        style={{ margin: `${width <= 700 ? "-8rem 0" : "-10rem 0"}` }}
+        color='#ccc'
+      >
+        Note: Slow internet might delay song play!
+      </Text>
+      <Stack
+        isInline
+        center
+        margin={width <= 700 ? "12rem 0 0 0" : "14rem 0 0 0"}
+      >
+        <Button onClick={() => togglePlay()}>
+          {!playState ? "Play" : "Stop"}
         </Button>
       </Stack>
+
       <OptionsContainer>
         {options?.options?.map((option) => (
           <div
