@@ -19,7 +19,7 @@ import CardOption from "../components/CardOption";
 import CustomModal from "../components/CustomModal";
 import { AnswerCard } from "../styled/Card";
 import { useHistory } from "react-router";
-import { setTokenSourceMapRange } from "typescript";
+import { motion } from "framer-motion";
 
 const OptionsContainer = styled.div`
   width: 80%;
@@ -298,7 +298,10 @@ const Instructions = () => {
         >
           <Heading size={36}>Example.</Heading>
           {show && (
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1, ease: "backInOut" }}
               style={{
                 background: "#00201d",
                 display: "inline-block",
@@ -309,7 +312,7 @@ const Instructions = () => {
               }}
             >
               {step == 1 ? firstStep : secondStep}
-            </div>
+            </motion.div>
           )}
         </Stack>
         <div
@@ -355,6 +358,7 @@ const Instructions = () => {
           </div>
         ))}
       </OptionsContainer>
+
       {/* <Challenge tracks={TEST_TRACKS} increaseCount={showCurrent} /> */}
     </Container>
   );
