@@ -15,14 +15,13 @@ const StyledModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 4rem auto;
 
   @media (max-width: 700px) {
     width: 98vw;
     height: 300px;
     margin: auto auto;
   }
-
-  margin: 4rem auto;
 
   .modal-background {
     position: fixed;

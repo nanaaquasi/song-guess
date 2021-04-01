@@ -110,7 +110,7 @@ const Quiz = () => {
           id='player'
           style={{
             transform: "scale(1.1)",
-            marginTop: "-10rem",
+            marginTop: "-14rem",
           }}
         ></div>
         {isFetchLoading ? (
