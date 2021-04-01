@@ -71,7 +71,7 @@ const ScoresPage = () => {
               style={{
                 padding: "1rem",
                 border: "2px solid #00550b",
-                margin: "2rem auto",
+                margin: `${width <= 700 ? "2rem auto" : "2rem 0 1rem 0"}`,
                 // width: `${width <= 700 ? "100%" : "360px"}`,
               }}
             >
@@ -90,7 +90,7 @@ const ScoresPage = () => {
               bold
               fontSize='24px'
               style={{
-                margin: `${width <= 700 ? ".4rem 0 0 0" : "2rem 0 0 0"}`,
+                margin: `${width <= 700 ? ".4rem 0 0 0" : ".4rem 0 0 0"}`,
               }}
             >
               {playlist?.tracks?.total} tracks
