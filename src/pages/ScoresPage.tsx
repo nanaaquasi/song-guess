@@ -122,6 +122,7 @@ const ScoresPage = () => {
                 width: `${width <= 700 ? "100%" : "40%"}`,
                 textAlign: "center",
                 marginTop: "20px",
+                fontSize: `${width <= 700 ? "18px !important" : "18px"}`,
               }}
             >
               Play again.

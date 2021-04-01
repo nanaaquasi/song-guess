@@ -257,20 +257,23 @@ const Challenge: FC<ChallengeProps> = ({
               {formatDate(options.answer.added_at)}{" "}
               {status === "wrong" && ", you should listen to it more!"}
             </Text>
-            {streaks >= 2 && (
+            {streaks > 2 && (
               <>
-                <Stack isInline center>
+                <Stack isInline={width <= 700 ? false : true} center>
                   <Text bold fontSize='24px' style={{ margin: ".5rem 0" }}>
                     Streaks {streaks}
                   </Text>
-                  <img src='https://img.icons8.com/emoji/48/000000/fire.png' />
+                  <img
+                    src='https://img.icons8.com/emoji/48/000000/fire.png'
+                    width='24px'
+                  />
                 </Stack>
               </>
             )}
             <Text bold fontSize='24px' style={{ margin: "2rem 0" }}>
               Score: {totalScore.total} (+ {totalScore.newScore})
             </Text>
-            <Stack isInline center>
+            <Stack isInline={width <= 700 ? false : true} center>
               <img
                 src={options?.answer?.track?.album?.images?.[0]?.url}
                 style={{ width: "150px" }}
@@ -307,6 +310,7 @@ const Challenge: FC<ChallengeProps> = ({
       <Text
         style={{ margin: `${width <= 700 ? "-8rem 0" : "-10rem 0"}` }}
         color='#ccc'
+        fontSize={width <= 700 ? "14px !important" : "16px"}
       >
         Note: Slow internet might delay song play!
       </Text>
