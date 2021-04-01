@@ -50,7 +50,7 @@ const Welcome = () => {
           margin={`${width <= 700 ? "8rem auto 0 auto" : "15rem auto 0 auto"}`}
           style={{ width: "85%" }}
         >
-          {/* <GameCard>
+          <GameCard>
             <img
               src={iconHelp}
               style={{
@@ -66,7 +66,7 @@ const Welcome = () => {
             <Text fontSize='20px'>
               A brief intro to how the game is played!
             </Text>
-          </GameCard> */}
+          </GameCard>
           <GameCard onClick={() => history.push("/user/playlists")}>
             <img
               src={iconSong}
