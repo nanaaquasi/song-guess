@@ -16,9 +16,9 @@ const Navbar: FC<NavProps> = ({ currentUser }: NavProps): ReactElement => {
       {currentUser && (
         <Stack isInline flexEnd>
           <Avatar>
-            <AvatarImage src={currentUser?.profileImage.url} />
+            <AvatarImage src={currentUser?.profileImage.url || ""} />
           </Avatar>
-          <h3>{currentUser?.name}</h3>
+          <h3>{currentUser?.name || ""}</h3>
         </Stack>
       )}
     </Stack>
