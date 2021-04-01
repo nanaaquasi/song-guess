@@ -24,6 +24,7 @@ const RedirectPage = () => {
 
     getAccessTokenFromUrl();
   }, []);
+
   return <div>Redirecting...</div>;
 };
 

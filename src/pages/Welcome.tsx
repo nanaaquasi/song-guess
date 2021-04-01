@@ -23,7 +23,6 @@ const Welcome = () => {
     const getUserProfile = async (): Promise<void> => {
       try {
         const { data } = await getCurrentUserProfile();
-        console.log({ data });
 
         const { display_name, images } = data;
 
@@ -32,6 +31,7 @@ const Welcome = () => {
           profileImage: images[0],
         });
       } catch (error) {
+        history.go(0);
         console.log(error);
       }
     };
