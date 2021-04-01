@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, ReactNode } from "react";
+import { useHistory } from "react-router";
 import { Avatar, AvatarImage, Stack } from "../styled/Shared";
 import { User } from "../utils/dts";
 
@@ -8,9 +9,10 @@ interface NavProps {
 }
 
 const Navbar: FC<NavProps> = ({ currentUser }: NavProps): ReactElement => {
+  const history = useHistory();
   return (
     <Stack isInline spaceBetween>
-      <Stack isInline>
+      <Stack isInline onClick={() => history.push("/welcome")}>
         <h1 style={{ color: "#1bf538" }}>guessify.</h1>
       </Stack>
       {currentUser && (
