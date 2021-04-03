@@ -16,7 +16,7 @@ const Home = () => {
 
   const handleGrantPermission = () => {
     console.log(token);
-    if (token !== null) {
+    if (token) {
       history.push("/welcome");
       return;
     }
