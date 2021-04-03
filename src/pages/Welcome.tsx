@@ -31,7 +31,6 @@ const Welcome = () => {
           profileImage: images[0],
         });
       } catch (error) {
-        history.go(0);
         console.log(error);
       }
     };
