@@ -120,13 +120,13 @@ const Challenge: FC<ChallengeProps> = ({
         scores: totalScore.total,
       });
     }
-    // const timer = setTimeout(() => {
-    //   if (status === "none") {
-    //     setStatus("wrong");
-    //     setOpenModal(true);
-    //   }
-    // }, 15000);
-    // return () => clearTimeout(timer);
+    const timer = setTimeout(() => {
+      if (status === "none") {
+        setStatus("wrong");
+        setOpenModal(true);
+      }
+    }, 15000);
+    return () => clearTimeout(timer);
   }, [tracks, currentIndex, count]);
 
   if (audioRef.current !== null) {

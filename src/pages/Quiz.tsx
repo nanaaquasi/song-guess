@@ -64,8 +64,6 @@ const Quiz = () => {
   const { width } = useWindowDimensions();
 
   React.useEffect(() => {
-    console.log(params);
-
     lottie.loadAnimation({
       container: document.getElementById("player") as Element,
       autoplay: false,
